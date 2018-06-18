@@ -36,6 +36,7 @@ namespace getlocation
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Đang chạy xíu nhé");
             List<String> array_location = new List<string>();
 
             string fileName = Path.GetDirectoryName(Application.ExecutablePath) + "\\" + "Source.xlsx";
@@ -97,8 +98,19 @@ namespace getlocation
                 {
                     string lat = data["results"][0]["geometry"]["location"]["lat"].ToString();
                     string lng = data["results"][0]["geometry"]["location"]["lng"].ToString();
+                    if (lat.Length > 9)
+                    {
+                        lat = lat.Substring(0, 9);
+                    }
+                    if (lng.Length > 10)
+                    {
+                        lng = lng.Substring(0, 10);
+                    }
+                  
+                   // lat = lat.Substring(0, 10);
+                    // lng = lng.Substring(0, 11);
                     Console.WriteLine(item.ToString() + " : " + lat + "," + lng);
-                    dt.Rows.Add(item.ToString(), lat + "," + lng);
+                    dt.Rows.Add(item.ToString(), lat + ", " + lng);
 
                 }
                 else
